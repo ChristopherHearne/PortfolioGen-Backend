@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Test.Models;
 
-namespace schoolSIMS.Controllers
+namespace API_Test.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
