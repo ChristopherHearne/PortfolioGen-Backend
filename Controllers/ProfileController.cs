@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Test.Models;
+using System.Net.Mime;
 
 namespace API_Test.Controllers
 {
@@ -73,8 +74,10 @@ namespace API_Test.Controllers
 
         // POST: api/Students
         [HttpPost]
-        public async Task<ActionResult<Profile>> PostProfile(Profile profiles)
+        [Consumes(MediaTypeNames.Application.Json)]
+        public async Task<ActionResult<Profile>> PostProfile([FromBody]Profile profiles)
         {
+            Console.WriteLine("Testing"); 
             _context.Profiles.Add(profiles);
             await _context.SaveChangesAsync();
 
