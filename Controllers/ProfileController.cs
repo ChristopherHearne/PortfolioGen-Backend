@@ -28,7 +28,7 @@ namespace API_Test.Controllers
             return await _context.Profiles.ToListAsync();
         }
 
-        // GET: api/Students/5
+        // GET: api/Profile/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Profile>> GetProfile(int id)
         {
@@ -42,7 +42,7 @@ namespace API_Test.Controllers
             return profiles;
         }
 
-        // PUT: api/Students/5
+        // PUT: api/Profile/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProfile(int id, Profile profiles)
         {
@@ -72,7 +72,7 @@ namespace API_Test.Controllers
             return NoContent();
         }
 
-        // POST: api/Students
+        // POST: api/Profile
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
         public async Task<ActionResult<Profile>> PostProfile([FromBody]Profile profiles)
@@ -84,7 +84,7 @@ namespace API_Test.Controllers
             return CreatedAtAction("GetProfile", new { id = profiles.Id }, profiles);
         }
 
-        // DELETE: api/Students/5
+        // DELETE: api/Profile/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Profile>> DeleteProfile(int id)
         {
