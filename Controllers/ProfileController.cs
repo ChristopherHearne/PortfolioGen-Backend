@@ -40,7 +40,7 @@ namespace API_Test.Controllers
                 return NotFound();
             }
 
-            return profiles;
+            return Ok(profiles);
         }
 
         // PUT: api/Profile/5
