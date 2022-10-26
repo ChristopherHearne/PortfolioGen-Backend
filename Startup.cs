@@ -34,11 +34,19 @@ namespace API_Test
                     Description = "An ASP.NET Core Web API for managing Profile Infos",
                     TermsOfService = new Uri("https://example.com/terms"),
                 });
-            }); 
+            });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("WithOrigin", builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000");
+                }); 
+            });
         }
         public void Configure(IApplicationBuilder app)
         {
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+            app.UseCors("WithOrigin"); 
             app.UseSwagger(c =>
             {
                 c.SerializeAsV2 = true;
@@ -51,7 +59,6 @@ namespace API_Test
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 c.RoutePrefix = String.Empty; 
             });
-
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {

@@ -31,16 +31,17 @@ namespace API_Test.Controllers
 
         // GET: api/Profile/5
         [HttpGet("{id}")]
+        [Produces("application/json")]
         public async Task<ActionResult<Profile>> GetProfile(int id)
         {
             var profiles = await _context.Profiles.FindAsync(id);
 
             if (profiles == null)
             {
-                return NotFound();
+                return NotFound("Not found");
             }
 
-            return Ok(profiles);
+            return profiles;
         }
 
         // PUT: api/Profile/5
