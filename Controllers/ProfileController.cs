@@ -49,7 +49,7 @@ namespace API_Test.Controllers
         [Produces("application/json")]
         public async Task<ActionResult<Profile>> GetProfileByName(String name)
         {
-            var profiles = await _context.Profiles.Where(profile => profile.FirstName == name).FirstOrDefaultAsync();
+            var profiles = await _context.Profiles.Where(profile => profile.ProfileName == name).FirstOrDefaultAsync();
 
             if (profiles == null)
             {
