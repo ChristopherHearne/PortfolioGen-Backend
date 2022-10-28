@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations; 
 namespace API_Test.Models
 {
     public partial class Profile
     {
         public int Id { get; set; }
+        [Required]
+        public string? ProfileName { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Title { get; set; }

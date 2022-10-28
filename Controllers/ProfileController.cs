@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Test.Models;
 using System.Net.Mime;
-using System.Diagnostics; 
+using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace API_Test.Controllers
 {
@@ -44,6 +45,19 @@ namespace API_Test.Controllers
             return profiles;
         }
 
+        [HttpGet("profiles/{name}")]
+        [Produces("application/json")]
+        public async Task<ActionResult<Profile>> GetProfileByName(String name)
+        {
+            var profiles = await _context.Profiles.Where(profile => profile.FirstName == name).FirstOrDefaultAsync();
+
+            if (profiles == null)
+            {
+                return NotFound("Could not find user with that profilename");
+            }
+
+            return profiles;
+        }
         // PUT: api/Profile/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProfile(int id, Profile profiles)
@@ -76,8 +90,19 @@ namespace API_Test.Controllers
 
         // POST: api/Profile
         [HttpPost]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
+        [Produces("application/json")]
         public async Task<ActionResult<Profile>> PostProfile([FromForm]Profile profiles)
+
         {
+            if (ProfileNameExists(profiles.ProfileName))
+            {
+                this.ModelState.AddModelError("Error", "Profilename already exists");
+                BadRequestObjectResult conflictResult = this.BadRequest(this.ModelState);
+                conflictResult.StatusCode = 409;
+                return conflictResult; 
+            }
+
             _context.Profiles.Add(profiles);
             await _context.SaveChangesAsync();
 
@@ -103,6 +128,11 @@ namespace API_Test.Controllers
         private bool ProfilesExists(int id)
         {
             return _context.Profiles.Any(e => e.Id == id);
+        }
+
+        private bool ProfileNameExists(String profileName)
+        {
+            return _context.Profiles.Any(e => e.ProfileName == profileName);
         }
     }
 }
