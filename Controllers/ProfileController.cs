@@ -20,12 +20,13 @@ namespace API_Test.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
         private readonly PortfolioGenDBContext _context;
 
-        public ProfileController(PortfolioGenDBContext context)
+        public ProfileController(PortfolioGenDBContext context, IConfiguration config)
         {
             _context = context;
+            Configuration = config;
         }
 
         // GET: api/Profile
@@ -52,14 +53,14 @@ namespace API_Test.Controllers
             return profiles;
         }
 
-        //[HttpGet("/github/oauth/token/")]
-        //[Produces("application/json")]
-        //public async Task<ActionResult<String>> GitHubSignIn([FromQuery] String code, String state)
-        //{
-        //    return code; 
-        //}
+        [HttpGet("/github/oauth/token")]
+        [Produces("application/json")]
+        public async Task<ActionResult<String>> GitHubSignIn([FromQuery] String code)
+        {
+            return code; 
+        }
 
-        [HttpGet("/github/oauth/token/")]
+        [HttpGet("/github/oauth/token/success")]
         [Produces("application/json")]
         public async Task<ActionResult<String>> GitHubSignInData([FromQuery] String code, String state)
         {
@@ -68,7 +69,7 @@ namespace API_Test.Controllers
             string clientSecret = Configuration["Github:ClientSecret"];
             using (HttpClient client = new HttpClient())
             {
-                var parameters = new Dictionary<string, string> { {"client_id", clientID}, {"client_secret", clientSecret} };
+                var parameters = new Dictionary<string, string> { { "client_id", clientID }, { "client_secret", clientSecret } };
                 var encodedContent = new FormUrlEncodedContent(parameters);
 
                 try
@@ -76,13 +77,14 @@ namespace API_Test.Controllers
                     HttpResponseMessage response = await client.PostAsync("https://github.com/login/oauth/access_token", encodedContent);
                     response.EnsureSuccessStatusCode();
                     string responseBody = await response.Content.ReadAsStringAsync();
-                    return responseBody; 
+                    return responseBody;
 
-                } catch (HttpRequestException e)
+                }
+                catch (HttpRequestException e)
                 {
-                    return e.Message; 
+                    return e.Message;
                 };
-            } 
+            }
 
         }
 
