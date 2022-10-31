@@ -62,16 +62,15 @@ namespace API_Test.Controllers
 
         [HttpGet("/github/oauth/token/success")]
         [Produces("application/json")]
-        public async Task<ActionResult<String>> GitHubSignInData([FromQuery] String code, String state)
+        public async Task<ActionResult<String>> GitHubSignInData([FromQuery] String code)
         {
             string token = "";
             string clientID = Configuration["Github:ClientId"];
             string clientSecret = Configuration["Github:ClientSecret"];
             using (HttpClient client = new HttpClient())
             {
-                var parameters = new Dictionary<string, string> { { "client_id", clientID }, { "client_secret", clientSecret } };
+                var parameters = new Dictionary<string, string> { { "client_id", clientID }, { "client_secret", clientSecret }, { "code", code } }; 
                 var encodedContent = new FormUrlEncodedContent(parameters);
-
                 try
                 {
                     HttpResponseMessage response = await client.PostAsync("https://github.com/login/oauth/access_token", encodedContent);
