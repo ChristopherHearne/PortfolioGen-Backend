@@ -25,6 +25,8 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="6.0.12" />
+    <PackageReference Include="Octokit" Version="4.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +44,8 @@
     <None Remove="Controllers\" />
     <None Remove="AspNet.Security.OAuth.GitHub" />
     <None Remove="Extensions\" />
+    <None Remove="Octokit" />
+    <None Remove="Newtonsoft.Json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

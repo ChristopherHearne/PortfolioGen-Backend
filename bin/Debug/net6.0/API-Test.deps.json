@@ -18,6 +18,8 @@
           "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.6",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.10",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.10",
+          "Newtonsoft.Json": "13.0.1",
+          "Octokit": "4.0.1",
           "Swashbuckle.AspNetCore": "6.4.0"
         },
         "runtime": {
@@ -1538,6 +1540,14 @@
           "lib/netstandard2.0/NuGet.Versioning.dll": {
             "assemblyVersion": "6.2.1.2",
             "fileVersion": "6.2.1.2"
+          }
+        }
+      },
+      "Octokit/4.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Octokit.dll": {
+            "assemblyVersion": "4.0.1.0",
+            "fileVersion": "4.0.1.0"
           }
         }
       },
@@ -3177,6 +3187,13 @@
       "sha512": "sha512-+o507LXjsN1YVAgmpqKCQZ70cLsXDoVmR8H0Wgy0muiFnOhkXN2+a6PGFBAIuA7qJch/umTYu1hp7Dlh1Qcrgg==",
       "path": "nuget.versioning/6.2.1",
       "hashPath": "nuget.versioning.6.2.1.nupkg.sha512"
+    },
+    "Octokit/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fwTQ/mEyvRA+LPvEApqziBR1Qvo6+AshUBQTZqXM5RMuJaSBzW3PGrG33HA+zOaq+71E4+EmN7kjCDBc+Ra3WQ==",
+      "path": "octokit/4.0.1",
+      "hashPath": "octokit.4.0.1.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",

@@ -10,7 +10,8 @@ using System.Net.Mime;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using API_Test.Extensions; 
+using API_Test.Extensions;
+using Microsoft.AspNetCore.Authentication;
 
 namespace API_Test.Controllers
 {
@@ -35,9 +36,9 @@ namespace API_Test.Controllers
 
         [HttpGet("oauth/github")]
         [Produces("application/json")]
-        public async Task<ActionResult> GithubSignIn()
+        public IActionResult GithubSignIn(string returnUrl = "/api/profile/oauth/github")
         {
-            return await HttpContext.
+            return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl}); 
         }
 
         // GET: api/Profile/5

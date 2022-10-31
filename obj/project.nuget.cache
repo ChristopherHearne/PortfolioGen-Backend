@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Jgx91fjhZNbDlTiCyEocVqkrOz16FTI70jwkL6/GatqUL1VlP27nhcSc+SBYDz9aVJbwyp8weF05IoCMdrjhkA==",
+  "dgSpecHash": "tJNgRhPgMzTQxUFA2BAOZ9qQWsmnIKmgmi+ftvCwWFq6CQ3QRSTESEEMgrdqXRFEb44e7YhJjp7+SoXVzQPUtQ==",
   "success": true,
   "projectFilePath": "/Users/christopherhearne/Projects/API-Test/API-Test/API-Test.csproj",
   "expectedPackageFiles": [
@@ -93,6 +93,7 @@
     "/Users/christopherhearne/.nuget/packages/nuget.projectmodel/5.11.0/nuget.projectmodel.5.11.0.nupkg.sha512",
     "/Users/christopherhearne/.nuget/packages/nuget.protocol/5.11.0/nuget.protocol.5.11.0.nupkg.sha512",
     "/Users/christopherhearne/.nuget/packages/nuget.versioning/6.2.1/nuget.versioning.6.2.1.nupkg.sha512",
+    "/Users/christopherhearne/.nuget/packages/octokit/4.0.1/octokit.4.0.1.nupkg.sha512",
     "/Users/christopherhearne/.nuget/packages/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "/Users/christopherhearne/.nuget/packages/runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "/Users/christopherhearne/.nuget/packages/runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

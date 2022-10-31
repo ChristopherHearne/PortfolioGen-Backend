@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using System.Reflection.Metadata;
-namespace Mvc.Client.Extensions;
+namespace API_Test.Extensions;
 
 public static class HttpContextExtensions
 {
