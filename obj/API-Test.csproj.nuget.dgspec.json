@@ -43,6 +43,10 @@
               "target": "Package",
               "version": "[1.1.1, )"
             },
+            "AspNet.Security.OAuth.GitHub": {
+              "target": "Package",
+              "version": "[6.0.12, )"
+            },
             "EntityFramework": {
               "target": "Package",
               "version": "[6.4.4, )"

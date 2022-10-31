@@ -20,6 +20,18 @@
           "lib/netstandard1.6/Ado.dll": {}
         }
       },
+      "AspNet.Security.OAuth.GitHub/6.0.12": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/AspNet.Security.OAuth.GitHub.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/AspNet.Security.OAuth.GitHub.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "EntityFramework/6.4.4": {
         "type": "package",
         "dependencies": {
@@ -3513,6 +3525,20 @@
         "ado.1.1.1.nupkg.sha512",
         "ado.nuspec",
         "lib/netstandard1.6/Ado.dll"
+      ]
+    },
+    "AspNet.Security.OAuth.GitHub/6.0.12": {
+      "sha512": "l8U+vG7BJAudyelC3hj89FDXYm0fJCQDLr7nc7sX5vrBKf4koWSi5GA8p1mE/64etf/lYnRMtYUPqRBAFwm+Wg==",
+      "type": "package",
+      "path": "aspnet.security.oauth.github/6.0.12",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "aspnet.security.oauth.github.6.0.12.nupkg.sha512",
+        "aspnet.security.oauth.github.nuspec",
+        "lib/net6.0/AspNet.Security.OAuth.GitHub.dll",
+        "lib/net6.0/AspNet.Security.OAuth.GitHub.xml"
       ]
     },
     "EntityFramework/6.4.4": {
@@ -10977,6 +11003,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Ado >= 1.1.1",
+      "AspNet.Security.OAuth.GitHub >= 6.0.12",
       "EntityFramework >= 6.4.4",
       "Microsoft.EntityFrameworkCore >= 6.0.10",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.10",
@@ -11029,6 +11056,10 @@
           "Ado": {
             "target": "Package",
             "version": "[1.1.1, )"
+          },
+          "AspNet.Security.OAuth.GitHub": {
+            "target": "Package",
+            "version": "[6.0.12, )"
           },
           "EntityFramework": {
             "target": "Package",

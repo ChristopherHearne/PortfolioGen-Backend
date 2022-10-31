@@ -24,6 +24,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="6.0.12" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,10 +40,13 @@
     <None Remove="Services\" />
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
     <None Remove="Controllers\" />
+    <None Remove="AspNet.Security.OAuth.GitHub" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 </Project>

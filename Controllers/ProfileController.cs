@@ -9,6 +9,8 @@ using API_Test.Models;
 using System.Net.Mime;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using API_Test.Extensions; 
 
 namespace API_Test.Controllers
 {
@@ -23,11 +25,19 @@ namespace API_Test.Controllers
             _context = context;
         }
 
-        // GET: api/Students
+        // GET: api/Profile
         [HttpGet]
+        [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<Profile>>> GetProfiles()
         {
             return await _context.Profiles.ToListAsync();
+        }
+
+        [HttpGet("oauth/github")]
+        [Produces("application/json")]
+        public async Task<ActionResult> GithubSignIn()
+        {
+            return await HttpContext.
         }
 
         // GET: api/Profile/5

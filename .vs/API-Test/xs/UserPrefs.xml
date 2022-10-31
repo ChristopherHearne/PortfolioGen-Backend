@@ -1,36 +1,42 @@
 ﻿<Properties StartupConfiguration="{45C416C6-9784-4B1E-BD8B-39B1488CC5A8}|Default">
+  <MonoDevelop.Ide.ItemProperties.API-Test PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/ProfileController.cs">
     <Files>
-      <File FileName="Program.cs" Line="1" Column="1" />
-      <File FileName="Startup.cs" Line="52" Column="45" />
-      <File FileName="Models/PortfolioGenDBContext.cs" Line="24" Column="10" />
-      <File FileName="Models/Profile.cs" Line="1" Column="1" />
-      <File FileName="Controllers/ProfileController.cs" Line="59" Column="14" />
+      <File FileName="Program.cs" Line="11" Column="1" />
+      <File FileName="Models/PortfolioGenDBContext.cs" Line="59" Column="50" />
+      <File FileName="Models/Profile.cs" Line="18" Column="44" />
       <File FileName="appsettings.json" Line="14" Column="1" />
       <File FileName="appsettings.Development.json" Line="14" Column="1" />
+      <File FileName="Properties/launchSettings.json" Line="26" Column="8" />
+      <File FileName="Startup.cs" Line="65" Column="1" />
       <File FileName=".gitignore" Line="2" Column="1" />
+      <File FileName="Controllers/ProfileController.cs" Line="135" Column="77" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="API-Test" expanded="True">
             <Node name="API-Test" expanded="True">
+              <Node name="Dependencies" expanded="True" />
               <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
+        <State>
+          <Value>profiles</Value>
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.API-Test PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

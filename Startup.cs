@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using API_Test.Models;
 using System.ComponentModel;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies; 
 namespace API_Test
 {
     public class Startup
@@ -23,8 +24,21 @@ namespace API_Test
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             var connection = Configuration.GetConnectionString("PortfolioGenDB");
-            services.AddDbContext<PortfolioGenDBContext>(options => options.UseSqlServer(connection)); 
+
+            services.AddDbContext<PortfolioGenDBContext>(options => options.UseSqlServer(connection));
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+                .AddGitHub(options =>
+            {
+                options.ClientId = Configuration["GitHub:ClientId"];
+                options.ClientSecret = Configuration["GitHub:ClientSecret"];
+            });
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -60,6 +74,8 @@ namespace API_Test
                 c.RoutePrefix = String.Empty; 
             });
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization(); 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
