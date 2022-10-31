@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using API_Test.Extensions;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Configuration;
 
 namespace API_Test.Controllers
 {
@@ -19,6 +20,7 @@ namespace API_Test.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
+        public IConfiguration Configuration { get; }
         private readonly PortfolioGenDBContext _context;
 
         public ProfileController(PortfolioGenDBContext context)
@@ -34,12 +36,6 @@ namespace API_Test.Controllers
             return await _context.Profiles.ToListAsync();
         }
 
-        [HttpGet("oauth/github")]
-        [Produces("application/json")]
-        public IActionResult GithubSignIn(string returnUrl = "/api/profile/oauth/github")
-        {
-            return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl}); 
-        }
 
         // GET: api/Profile/5
         [HttpGet("{id}")]
@@ -55,6 +51,41 @@ namespace API_Test.Controllers
 
             return profiles;
         }
+
+        //[HttpGet("/github/oauth/token/")]
+        //[Produces("application/json")]
+        //public async Task<ActionResult<String>> GitHubSignIn([FromQuery] String code, String state)
+        //{
+        //    return code; 
+        //}
+
+        [HttpGet("/github/oauth/token/")]
+        [Produces("application/json")]
+        public async Task<ActionResult<String>> GitHubSignInData([FromQuery] String code, String state)
+        {
+            string token = "";
+            string clientID = Configuration["Github:ClientId"];
+            string clientSecret = Configuration["Github:ClientSecret"];
+            using (HttpClient client = new HttpClient())
+            {
+                var parameters = new Dictionary<string, string> { {"client_id", clientID}, {"client_secret", clientSecret} };
+                var encodedContent = new FormUrlEncodedContent(parameters);
+
+                try
+                {
+                    HttpResponseMessage response = await client.PostAsync("https://github.com/login/oauth/access_token", encodedContent);
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    return responseBody; 
+
+                } catch (HttpRequestException e)
+                {
+                    return e.Message; 
+                };
+            } 
+
+        }
+
 
         [HttpGet("profiles/{name}")]
         [Produces("application/json")]

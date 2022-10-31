@@ -42,7 +42,7 @@ namespace API_Test
             {
                 options.ClientId = Configuration["GitHub:ClientId"];
                 options.ClientSecret = Configuration["GitHub:ClientSecret"];
-                options.CallbackPath = new PathString("/api/profile/oauth/github");
+                options.CallbackPath = new PathString("/github/oauth/token");
                 options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
                 options.TokenEndpoint = "https://github.com/login/oauth/access_token";
                 options.UserInformationEndpoint = "https://api.github.com/user";
@@ -104,6 +104,7 @@ namespace API_Test
             });
             app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization(); 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
