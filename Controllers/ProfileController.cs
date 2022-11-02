@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using API_Test.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
+using System.Text.Json;
 
 namespace API_Test.Controllers
 {
@@ -53,12 +54,6 @@ namespace API_Test.Controllers
             return profiles;
         }
 
-        [HttpGet("/github/oauth/token")]
-        [Produces("application/json")]
-        public async Task<ActionResult<String>> GitHubSignIn([FromQuery] String code)
-        {
-            return code; 
-        }
 
         [HttpGet("/github/oauth/token/success")]
         [Produces("application/json")]
