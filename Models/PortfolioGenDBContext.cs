@@ -16,7 +16,7 @@ namespace API_Test.Models
         {
         }
 
-        public virtual DbSet<Profile> Profiles { get; set; } = null!;
+        public virtual DbSet<Profile> Profiles { get; set; } = null!; 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

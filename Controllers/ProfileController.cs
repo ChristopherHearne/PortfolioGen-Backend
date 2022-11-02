@@ -38,7 +38,7 @@ namespace API_Test.Controllers
         }
 
         // GET: api/Profile
-        [HttpGet]
+        [HttpGet("/profiles")]
         [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<Profile>>> GetProfiles()
         {
