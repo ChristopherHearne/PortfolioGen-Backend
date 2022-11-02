@@ -125,31 +125,14 @@ namespace API_Test.Controllers
         }
         // PUT: api/Profile/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProfile(int id, Profile profiles)
+        public async Task<IActionResult> PutProfile(int id, [FromBody]Profile profile)
         {
-            if (id != profiles.Id)
+            var updatedProfile = await _context.Profiles.FindAsync(id);
+            if(updatedProfile == null)
             {
-                return BadRequest();
+                return NotFound("Could not find this user"); 
             }
-
-            _context.Entry(profiles).State = (Microsoft.EntityFrameworkCore.EntityState)EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProfilesExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            _context.Profiles.Update(profile); 
             return NoContent();
         }
 
