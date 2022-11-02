@@ -94,8 +94,8 @@ namespace API_Test.Controllers
                     if (res != null)
                     {
                         var jsonString = await res.Content.ReadAsStringAsync();
-                        var jsonObj = JObject.Parse(jsonString);
-                        return Ok(new JsonResult(jsonString));  
+                        var jsonObj = new JsonResult(jsonString);
+                        return Ok(jsonObj);  
                     }
                     return null;
 

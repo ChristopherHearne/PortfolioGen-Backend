@@ -20,5 +20,6 @@ namespace API_Test.Models
         public string? Instagram { get; set; }
         public string? Github { get; set; }
         public string? Website { get; set; }
+        public string? GithubUsername { get; set; }
     }
 }

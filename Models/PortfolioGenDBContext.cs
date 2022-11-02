@@ -53,7 +53,9 @@ namespace API_Test.Models
 
                 entity.Property(e => e.Website).HasMaxLength(2080);
 
-                entity.Property(e => e.ProfileName).HasMaxLength(55); 
+                entity.Property(e => e.ProfileName).HasMaxLength(55);
+
+                entity.Property(e => e.GithubUsername).HasMaxLength(55); 
             });
 
             OnModelCreatingPartial(modelBuilder);
