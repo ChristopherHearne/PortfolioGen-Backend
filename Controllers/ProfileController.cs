@@ -132,7 +132,8 @@ namespace API_Test.Controllers
             {
                 return NotFound("Could not find this user"); 
             }
-            _context.Profiles.Update(profile); 
+            _context.Profiles.Update(profile);
+            await _context.SaveChangesAsync(); 
             return NoContent();
         }
 
