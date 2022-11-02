@@ -14,6 +14,7 @@ using API_Test.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
+using System.Web;
 
 namespace API_Test.Controllers
 {
@@ -57,7 +58,7 @@ namespace API_Test.Controllers
 
         [HttpGet("/github/oauth/token/success")]
         [Produces("application/json")]
-        public async Task<ActionResult<String>> GitHubSignInData([FromQuery] String code)
+        public async Task<ActionResult> GitHubSignInData([FromQuery] String code)
         {
             string token = "";
             string clientID = Configuration["Github:ClientId"];
@@ -70,13 +71,13 @@ namespace API_Test.Controllers
                 {
                     HttpResponseMessage response = await client.PostAsync("https://github.com/login/oauth/access_token", encodedContent);
                     response.EnsureSuccessStatusCode();
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    return responseBody;
+                    string responseBody = await response.Content.ReadAsStringAsync(); // To get user-data from this, string contents need to be parsed to get both token-type and the token itself
+                    return Ok(responseBody);
 
                 }
                 catch (HttpRequestException e)
                 {
-                    return e.Message;
+                    return NotFound(e);
                 };
             }
 
