@@ -15,6 +15,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 using System.Web;
+using System.Data.Entity;
+using System.Net.Http.Headers;
+using static System.Net.WebRequestMethods;
+using EntityState = System.Data.Entity.EntityState;
 
 namespace API_Test.Controllers
 {
@@ -72,7 +76,20 @@ namespace API_Test.Controllers
                     HttpResponseMessage response = await client.PostAsync("https://github.com/login/oauth/access_token", encodedContent);
                     response.EnsureSuccessStatusCode();
                     string responseBody = await response.Content.ReadAsStringAsync(); // To get user-data from this, string contents need to be parsed to get both token-type and the token itself
-                    return Ok(responseBody);
+                    var decodedURL = HttpUtility.UrlDecode(responseBody);
+                    var dict = HttpUtility.ParseQueryString(decodedURL);
+                    var requestURL = "https://api.github.com/user"; 
+                    var headers = dict.AllKeys.ToDictionary(key => key, key => dict[key]);
+
+                    var request = new HttpRequestMessage(HttpMethod.Get, requestURL);
+
+                    request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", headers["access_token"]);
+                    request.Headers.Add("scope", headers["scope"]);
+                    var res = await client.SendAsync(request);
+                    res.EnsureSuccessStatusCode(); 
+                    return Ok(res);
+
 
                 }
                 catch (HttpRequestException e)
@@ -106,7 +123,7 @@ namespace API_Test.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(profiles).State = EntityState.Modified;
+            _context.Entry(profiles).State = (Microsoft.EntityFrameworkCore.EntityState)EntityState.Modified;
 
             try
             {

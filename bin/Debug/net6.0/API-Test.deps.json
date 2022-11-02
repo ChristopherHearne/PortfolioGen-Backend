@@ -9,7 +9,7 @@
       "API-Test/1.0.0": {
         "dependencies": {
           "Ado": "1.1.1",
-          "AspNet.Security.OAuth.GitHub": "6.0.12",
+          "AspNet.Security.OAuth.GitHub": "6.0.13",
           "EntityFramework": "6.4.4",
           "Microsoft.EntityFrameworkCore": "6.0.10",
           "Microsoft.EntityFrameworkCore.Design": "6.0.10",
@@ -43,11 +43,11 @@
           }
         }
       },
-      "AspNet.Security.OAuth.GitHub/6.0.12": {
+      "AspNet.Security.OAuth.GitHub/6.0.13": {
         "runtime": {
           "lib/net6.0/AspNet.Security.OAuth.GitHub.dll": {
-            "assemblyVersion": "6.0.12.0",
-            "fileVersion": "6.0.1222.51059"
+            "assemblyVersion": "6.0.13.0",
+            "fileVersion": "6.0.1322.55160"
           }
         }
       },
@@ -2572,12 +2572,12 @@
       "path": "ado/1.1.1",
       "hashPath": "ado.1.1.1.nupkg.sha512"
     },
-    "AspNet.Security.OAuth.GitHub/6.0.12": {
+    "AspNet.Security.OAuth.GitHub/6.0.13": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-l8U+vG7BJAudyelC3hj89FDXYm0fJCQDLr7nc7sX5vrBKf4koWSi5GA8p1mE/64etf/lYnRMtYUPqRBAFwm+Wg==",
-      "path": "aspnet.security.oauth.github/6.0.12",
-      "hashPath": "aspnet.security.oauth.github.6.0.12.nupkg.sha512"
+      "sha512": "sha512-+rMWw8lna+xTQGa1PvFKHAQjwJETi60FGA4HmCeWzMVENlc3Vu5LzAG5ZnbC/7nse3es9yIzzQT8Hmyc1tWFVg==",
+      "path": "aspnet.security.oauth.github/6.0.13",
+      "hashPath": "aspnet.security.oauth.github.6.0.13.nupkg.sha512"
     },
     "EntityFramework/6.4.4": {
       "type": "package",

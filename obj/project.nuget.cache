@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "tJNgRhPgMzTQxUFA2BAOZ9qQWsmnIKmgmi+ftvCwWFq6CQ3QRSTESEEMgrdqXRFEb44e7YhJjp7+SoXVzQPUtQ==",
+  "dgSpecHash": "EGIeMTMxA1CTEIBBYnc5mz5bC6zCZRsN4wkSsRNhMSjiIVdIotxBZQzXnkD0FbbqEoW3Kj86XDt/AIXUlHJzVg==",
   "success": true,
   "projectFilePath": "/Users/christopherhearne/Projects/API-Test/API-Test/API-Test.csproj",
   "expectedPackageFiles": [
     "/Users/christopherhearne/.nuget/packages/ado/1.1.1/ado.1.1.1.nupkg.sha512",
-    "/Users/christopherhearne/.nuget/packages/aspnet.security.oauth.github/6.0.12/aspnet.security.oauth.github.6.0.12.nupkg.sha512",
+    "/Users/christopherhearne/.nuget/packages/aspnet.security.oauth.github/6.0.13/aspnet.security.oauth.github.6.0.13.nupkg.sha512",
     "/Users/christopherhearne/.nuget/packages/entityframework/6.4.4/entityframework.6.4.4.nupkg.sha512",
     "/Users/christopherhearne/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/Users/christopherhearne/.nuget/packages/messagepack/2.1.152/messagepack.2.1.152.nupkg.sha512",
