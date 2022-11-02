@@ -1,10 +1,6 @@
 ﻿<Properties StartupConfiguration="{45C416C6-9784-4B1E-BD8B-39B1488CC5A8}|Default">
   <MonoDevelop.Ide.ItemProperties.API-Test PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/ProfileController.cs">
     <Files>
       <File FileName="Program.cs" Line="18" Column="54" />
@@ -14,9 +10,8 @@
       <File FileName="appsettings.Development.json" Line="14" Column="1" />
       <File FileName="Properties/launchSettings.json" Line="26" Column="8" />
       <File FileName=".gitignore" Line="2" Column="1" />
-      <File FileName="Controllers/ProfileController.cs" Line="81" Column="19" />
+      <File FileName="Controllers/ProfileController.cs" Line="87" Column="118" />
       <File FileName="Extensions/HttpContextExtentions.cs" Line="5" Column="42" />
-      <File FileName="Startup.cs" Line="67" Column="19" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -40,5 +35,9 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
