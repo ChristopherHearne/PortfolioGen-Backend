@@ -102,6 +102,17 @@ namespace API_Test.Controllers
             return Ok(list);
         }
 
+        [HttpGet("/tokens/{id}")]
+        public async Task<ActionResult<Token>> GetToken(int id)
+        {
+            var token = await _context.Tokens.FindAsync(id);
+            if (token == null)
+            {
+                return NotFound("Token could not be found");
+            }
+            return token; 
+        }
+
         [HttpPost("/tokens/{profileID}")]
         [Consumes("application/json")]
         [Produces("application/json")]
@@ -110,7 +121,7 @@ namespace API_Test.Controllers
             token.UserId = profileID;
             _context.Tokens.Add(token);
             await _context.SaveChangesAsync();
-            return token;
+            return CreatedAtAction("GetToken", new { id = token.Id }, token);
         }
 
         [HttpGet("profiles/{name}")]
