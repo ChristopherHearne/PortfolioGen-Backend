@@ -43,15 +43,18 @@ namespace API_Test.Controllers
         }
 
 
-        [HttpGet("/github/oauth/token/success")]
+        [HttpGet("/github/oauth/generate/token")]
+        [Consumes("application/json")]
         [Produces("application/json")]
         public async Task<ActionResult> GitHubSignInData([FromQuery] String code)
         {
             string clientID = Configuration["Github:ClientId"];
             string clientSecret = Configuration["Github:ClientSecret"];
+            // var activeProfile = await _context.Profiles.FindAsync(id); 
             using (HttpClient client = new HttpClient())
             {
-                var parameters = new Dictionary<string, string> { { "client_id", clientID }, { "client_secret", clientSecret }, { "code", code } }; 
+                
+                var parameters = new Dictionary<string, string> { { "client_id", clientID }, { "client_secret", clientSecret }, { "code", code }}; 
                 var encodedContent = new FormUrlEncodedContent(parameters);
                 try
                 {
@@ -60,25 +63,26 @@ namespace API_Test.Controllers
                     string responseBody = await response.Content.ReadAsStringAsync();
                     var decodedURL = HttpUtility.UrlDecode(responseBody);
                     var dict = HttpUtility.ParseQueryString(decodedURL);
-                    var requestURL = "https://api.github.com/user"; 
-                    var headers = dict.AllKeys.ToDictionary(key => key, key => dict[key]);
 
-                    
-                    var request = new HttpRequestMessage(HttpMethod.Get, requestURL);
 
-                    // request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    // request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", headers["access_token"]);
-                    request.Headers.Add("User-Agent", "API-Test"); 
-                    request.Headers.Add("authorization", $"Bearer {headers["access_token"]}");
-                    HttpResponseMessage res = await client.SendAsync(request);
+                    //var requestURL = "https://api.github.com/user"; 
+                    var resultObj = dict.AllKeys.ToDictionary(key => key, key => dict[key]);
+                    return Ok(resultObj);
+                    //var request = new HttpRequestMessage(HttpMethod.Get, requestURL);
 
-                    if (res != null)
-                    {
-                        var jsonString = await res.Content.ReadAsStringAsync();
-                        var jsonObj = new JsonResult(jsonString);
-                        return Ok(jsonObj);  
-                    }
-                    return null;
+                    //request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    ///request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", headers["access_token"]);
+                    //request.Headers.Add("User-Agent", "API-Test"); 
+                    //request.Headers.Add("authorization", $"Bearer {headers["access_token"]}");
+                    //HttpResponseMessage res = await client.SendAsync(request);
+
+                    //if (res != null)
+                    //{
+                    //    var jsonString = await res.Content.ReadAsStringAsync();
+                    //    var jsonObj = new JsonResult(jsonString);
+                    //    return Ok(jsonString);  
+                    //}
+                    //return null;
 
 
                 }
@@ -124,7 +128,7 @@ namespace API_Test.Controllers
             {
                 if (!ProfilesExists(id))
                 {
-                    return NotFound();
+                    return NotFound("Profile does not exist in the DB");
                 }
                 else
                 {
