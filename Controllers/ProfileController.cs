@@ -106,7 +106,8 @@ namespace API_Test.Controllers
         }
         // PUT: api/Profile/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProfile(int id, Profile profiles)
+        [Produces("application/json")]
+        public async Task<IActionResult> PutProfile(int id, [FromForm]Profile profiles)
         {
             if (id != profiles.Id)
             {
