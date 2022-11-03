@@ -68,9 +68,7 @@ namespace API_Test.DBContext
 
             modelBuilder.Entity<Token>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.AccessToken)
                     .HasMaxLength(55)

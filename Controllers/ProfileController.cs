@@ -43,16 +43,16 @@ namespace API_Test.Controllers
             return profiles;
         }
 
-
+        // TODO : We should redirect this endpoint to be part of our client, we are already posting the token so we simply need to get the token when we have redirected
         [HttpGet("/github/oauth/generate/token")]
         [Consumes("application/json")]
         [Produces("application/json")]
-        public async Task<ActionResult> GitHubSignInData([FromQuery] String code, [FromQuery]int id)
+        public async Task<ActionResult> GitHubSignInData([FromQuery] String code, [FromQuery]int state)
         {
             Token token = new Token(); 
             string clientID = Configuration["Github:ClientId"];
             string clientSecret = Configuration["Github:ClientSecret"];
-            var activeProfile = await _context.Profiles.FindAsync(id); 
+            // var activeProfile = await _context.Profiles.FindAsync(state); 
             using (HttpClient client = new HttpClient())
             {
                 
@@ -60,6 +60,7 @@ namespace API_Test.Controllers
                 var encodedContent = new FormUrlEncodedContent(parameters);
                 try
                 {
+                    // TODO: Make sure HttpResponseMessage has an Accept Header of application/json. Unnecessary parsing of string contents below
                     HttpResponseMessage response = await client.PostAsync("https://github.com/login/oauth/access_token", encodedContent);
                     response.EnsureSuccessStatusCode();
                     string responseBody = await response.Content.ReadAsStringAsync();
@@ -71,28 +72,9 @@ namespace API_Test.Controllers
                     token.AccessToken = resultObj["access_token"];
                     token.TokenType = resultObj["token_type"];
                     token.Scope = resultObj["scope"];
-                    token.Id = 68;
-                    token.ProfileId = 78;
-                    await PostToken(token); 
-                    return Ok(resultObj);
-
-                    //var requestURL = "https://api.github.com/user"; 
-                    //var request = new HttpRequestMessage(HttpMethod.Get, requestURL);
-                    //request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    ///request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", headers["access_token"]);
-                    //request.Headers.Add("User-Agent", "API-Test"); 
-                    //request.Headers.Add("authorization", $"Bearer {headers["access_token"]}");
-                    //HttpResponseMessage res = await client.SendAsync(request);
-
-                    //if (res != null)
-                    //{
-                    //    var jsonString = await res.Content.ReadAsStringAsync();
-                    //    var jsonObj = new JsonResult(jsonString);
-                    //    return Ok(jsonString);  
-                    //}
-                    //return null;
-
-
+                    token.ProfileId = state;
+                    await PostToken(token);
+                    return Ok($"Token was created on user {state}");
                 }
                 catch (HttpRequestException e)
                 {
