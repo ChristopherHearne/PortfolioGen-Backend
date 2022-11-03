@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API_Test.Models
 {
@@ -8,9 +7,10 @@ namespace API_Test.Models
     {
         public int Id { get; set; }
         public string? AccessToken { get; set; }
-        public string? Scope { get; set; }
         public string? TokenType { get; set; }
-        [ForeignKey("UserId")]
-        public int? UserId { get; set; }
+        public string? Scope { get; set; }
+        public int? ProfileId { get; set; }
+
+        public virtual Profile? Profile { get; set; }
     }
 }

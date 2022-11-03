@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace API_Test.Models
+namespace API_Test.DBEmigration
 {
     public partial class PortfolioGenDBContext : DbContext
     {
@@ -23,6 +23,7 @@ namespace API_Test.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=tcp:portfoliogensqldatabase.database.windows.net,1433;Initial Catalog=PortfolioGenDB;Persist Security Info=False;User ID=portAdmin;Password=EFjUAPveMg4K89x;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
@@ -67,11 +68,15 @@ namespace API_Test.Models
 
             modelBuilder.Entity<Token>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
 
                 entity.Property(e => e.AccessToken)
                     .HasMaxLength(55)
                     .HasColumnName("access_token");
+
+                entity.Property(e => e.ProfileId).HasColumnName("profile_id");
 
                 entity.Property(e => e.Scope)
                     .HasMaxLength(55)
@@ -81,13 +86,10 @@ namespace API_Test.Models
                     .HasMaxLength(55)
                     .HasColumnName("token_type");
 
-                entity.Property(e => e.UserId).HasColumnName("user_id");
-
-                /*entity.HasOne(d => d.User)
-                    .WithMany()
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Tokens__user_id__6FE99F9F");
-                */ 
+                entity.HasOne(d => d.Profile)
+                    .WithMany(p => p.Tokens)
+                    .HasForeignKey(d => d.ProfileId)
+                    .HasConstraintName("FK__Tokens__profile___76969D2E");
             });
 
             OnModelCreatingPartial(modelBuilder);
