@@ -43,7 +43,8 @@ namespace API_Test.Controllers
             return profiles;
         }
 
-        // TODO : We should redirect this endpoint to be part of our client, we are already posting the token so we simply need to get the token when we have redirected
+        // TODO: We should redirect this endpoint to be part of our client, we are already posting the token so we simply need to get the token when we have redirected
+        // TODO: We're getting what we need here, which is to post our access token t oour specific user. But we need to use the API to simply return the results. Use the other endpoints to post access tokens for specific users 
         [HttpGet("/github/oauth/generate/token")]
         [Consumes("application/json")]
         [Produces("application/json")]
