@@ -18,12 +18,12 @@ namespace API_Test.Controllers
             Configuration = config;
         }
 
-        // GET: api/Profile
-        [HttpGet("/profiles")]
-        [Produces("application/json")]
+        // GET: api/Profile/profiles
+        [HttpGet("profiles")]
         public async Task<ActionResult<IEnumerable<Profile>>> GetProfiles()
         {
-            return await _context.Profiles.ToListAsync();
+            var list = await _context.Profiles.ToListAsync<Profile>();
+            return Ok(list); 
         }
 
 
