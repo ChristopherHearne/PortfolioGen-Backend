@@ -46,11 +46,16 @@
     <None Remove="Extensions\" />
     <None Remove="Octokit" />
     <None Remove="Newtonsoft.Json" />
+    <None Remove="DBEmigration\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="Controllers\" />
     <Folder Include="Extensions\" />
+    <Folder Include="DBEmigration\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Models\PortfolioGenDBContext.cs" />
   </ItemGroup>
 </Project>
