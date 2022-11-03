@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using API_Test.Models;
+using API_Test.DBContext; 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,11 +47,12 @@ namespace API_Test.Controllers
         [HttpGet("/github/oauth/generate/token")]
         [Consumes("application/json")]
         [Produces("application/json")]
-        public async Task<ActionResult> GitHubSignInData([FromQuery] String code)
+        public async Task<ActionResult> GitHubSignInData([FromQuery] String code, [FromQuery]int id)
         {
+            Token token = new Token(); 
             string clientID = Configuration["Github:ClientId"];
             string clientSecret = Configuration["Github:ClientSecret"];
-            // var activeProfile = await _context.Profiles.FindAsync(id); 
+            var activeProfile = await _context.Profiles.FindAsync(id); 
             using (HttpClient client = new HttpClient())
             {
                 
@@ -65,11 +67,15 @@ namespace API_Test.Controllers
                     var dict = HttpUtility.ParseQueryString(decodedURL);
 
 
-                    //var requestURL = "https://api.github.com/user"; 
                     var resultObj = dict.AllKeys.ToDictionary(key => key, key => dict[key]);
+                    token.AccessToken = resultObj["access_token"];
+                    token.TokenType = resultObj["token_type"];
+                    token.Id = id;
+                    await PostToken(id, token); 
                     return Ok(resultObj);
-                    //var request = new HttpRequestMessage(HttpMethod.Get, requestURL);
 
+                    //var requestURL = "https://api.github.com/user"; 
+                    //var request = new HttpRequestMessage(HttpMethod.Get, requestURL);
                     //request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     ///request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", headers["access_token"]);
                     //request.Headers.Add("User-Agent", "API-Test"); 
@@ -118,7 +124,7 @@ namespace API_Test.Controllers
         [Produces("application/json")]
         public async Task<ActionResult<Token>> PostToken(int profileID, [FromBody]Token token)
         {
-            token.UserId = profileID;
+            token.ProfileId = profileID;
             _context.Tokens.Add(token);
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetToken", new { id = token.Id }, token);

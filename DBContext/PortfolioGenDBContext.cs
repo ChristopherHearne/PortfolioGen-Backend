@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using API_Test.Models;
 
-namespace API_Test.DBEmigration
+namespace API_Test.DBContext
 {
     public partial class PortfolioGenDBContext : DbContext
     {
@@ -23,7 +24,6 @@ namespace API_Test.DBEmigration
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=tcp:portfoliogensqldatabase.database.windows.net,1433;Initial Catalog=PortfolioGenDB;Persist Security Info=False;User ID=portAdmin;Password=EFjUAPveMg4K89x;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
@@ -85,11 +85,12 @@ namespace API_Test.DBEmigration
                 entity.Property(e => e.TokenType)
                     .HasMaxLength(55)
                     .HasColumnName("token_type");
-
+                /*
                 entity.HasOne(d => d.Profile)
                     .WithMany(p => p.Tokens)
                     .HasForeignKey(d => d.ProfileId)
                     .HasConstraintName("FK__Tokens__profile___76969D2E");
+                */
             });
 
             OnModelCreatingPartial(modelBuilder);

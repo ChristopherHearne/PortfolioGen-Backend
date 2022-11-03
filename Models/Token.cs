@@ -11,6 +11,5 @@ namespace API_Test.Models
         public string? Scope { get; set; }
         public int? ProfileId { get; set; }
 
-        public virtual Profile? Profile { get; set; }
     }
 }
