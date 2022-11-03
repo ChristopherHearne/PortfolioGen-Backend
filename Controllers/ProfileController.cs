@@ -70,8 +70,10 @@ namespace API_Test.Controllers
                     var resultObj = dict.AllKeys.ToDictionary(key => key, key => dict[key]);
                     token.AccessToken = resultObj["access_token"];
                     token.TokenType = resultObj["token_type"];
-                    token.Id = id;
-                    await PostToken(id, token); 
+                    token.Scope = resultObj["scope"];
+                    token.Id = 68;
+                    token.ProfileId = 78;
+                    await PostToken(token); 
                     return Ok(resultObj);
 
                     //var requestURL = "https://api.github.com/user"; 
@@ -119,12 +121,22 @@ namespace API_Test.Controllers
             return token; 
         }
 
-        [HttpPost("/tokens/{profileID}")]
+        [HttpGet("/tokens/profile/{profileId}")]
+        public async Task<ActionResult<Token>> GetTokenByProfileId(int profileID)
+        {
+            var token = await _context.Tokens.Where(tok => tok.ProfileId == profileID).FirstOrDefaultAsync();
+            if(token == null)
+            {
+                return NotFound("Could not find token attached to that profileID"); 
+            }
+            return token; 
+        }
+
+        [HttpPost("/tokens")]
         [Consumes("application/json")]
         [Produces("application/json")]
-        public async Task<ActionResult<Token>> PostToken(int profileID, [FromBody]Token token)
+        public async Task<ActionResult<Token>> PostToken([FromBody]Token token)
         {
-            token.ProfileId = profileID;
             _context.Tokens.Add(token);
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetToken", new { id = token.Id }, token);
