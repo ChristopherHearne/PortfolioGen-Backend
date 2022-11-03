@@ -1,26 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Web;
 using API_Test.Models;
-using System.Net.Mime;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using API_Test.Extensions;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.Configuration;
-using System.Text.Json;
-using Newtonsoft.Json; 
-using System.Web;
-using System.Data.Entity;
-using System.Net.Http.Headers;
-using static System.Net.WebRequestMethods;
-using EntityState = System.Data.Entity.EntityState;
-using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore; 
 
 namespace API_Test.Controllers
 {
@@ -125,18 +106,33 @@ namespace API_Test.Controllers
         }
         // PUT: api/Profile/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProfile(int id, [FromBody]Profile profile)
+        public async Task<IActionResult> PutProfile(int id, Profile profiles)
         {
-            var updatedProfile = await _context.Profiles.FindAsync(id);
-            if(updatedProfile == null)
+            if (id != profiles.Id)
             {
-                return NotFound("Could not find this user"); 
+                return BadRequest();
             }
-            _context.Profiles.Update(profile);
-            await _context.SaveChangesAsync(); 
+
+            _context.Entry(profiles).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProfilesExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
             return NoContent();
         }
-
         // POST: api/Profile
         [HttpPost]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
