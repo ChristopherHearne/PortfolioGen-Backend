@@ -67,7 +67,7 @@ namespace API_Test.Models
 
             modelBuilder.Entity<Token>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.AccessToken)
                     .HasMaxLength(55)
@@ -83,10 +83,11 @@ namespace API_Test.Models
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
-                entity.HasOne(d => d.User)
+                /*entity.HasOne(d => d.User)
                     .WithMany()
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK__Tokens__user_id__6FE99F9F");
+                */ 
             });
 
             OnModelCreatingPartial(modelBuilder);

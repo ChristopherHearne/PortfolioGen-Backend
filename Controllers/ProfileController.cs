@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using API_Test.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
 
 namespace API_Test.Controllers
 {
@@ -94,6 +94,24 @@ namespace API_Test.Controllers
 
         }
 
+        [HttpGet("/tokens")]
+        [Produces("application/json")]
+        public async Task<ActionResult<IEnumerable<Token>>> GetTokens()
+        {
+            var list = await _context.Tokens.ToListAsync<Token>();
+            return Ok(list);
+        }
+
+        [HttpPost("/tokens/{profileID}")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        public async Task<ActionResult<Token>> PostToken(int profileID, [FromBody]Token token)
+        {
+            token.UserId = profileID;
+            _context.Tokens.Add(token);
+            await _context.SaveChangesAsync();
+            return token;
+        }
 
         [HttpGet("profiles/{name}")]
         [Produces("application/json")]

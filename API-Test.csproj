@@ -39,7 +39,6 @@
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer.Design" />
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
-    <None Remove="Services\" />
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
     <None Remove="Controllers\" />
     <None Remove="AspNet.Security.OAuth.GitHub" />
@@ -50,7 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Services\" />
     <Folder Include="Controllers\" />
     <Folder Include="Extensions\" />
     <Folder Include="DBEmigration\" />
