@@ -3,6 +3,8 @@ using API_Test.Models;
 using API_Test.DBContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Security.Cryptography;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,12 +23,11 @@ namespace API_Test.Controllers
             Configuration = config; 
         }
 
-        // TODO: We should redirect this endpoint to be part of our client, we are already posting the token so we simply need to get the token when we have redirected
         // TODO: We're getting what we need here, which is to post our access token t oour specific user. But we need to use the API to simply return the results. Use the other endpoints to post access tokens for specific users 
         [HttpGet("/github/oauth/generate/token")]
         [Consumes("application/json")]
         [Produces("application/json")]
-        public async Task<ActionResult> GitHubSignInData([FromQuery] String code, [FromQuery] int state)
+        public async Task<ActionResult> GitHubSignInData([FromQuery] String code, [FromQuery] int id)
         {
             Token token = new Token();
             string clientID = Configuration["Github:ClientId"];
@@ -51,9 +52,11 @@ namespace API_Test.Controllers
                     token.AccessToken = resultObj["access_token"];
                     token.TokenType = resultObj["token_type"];
                     token.Scope = resultObj["scope"];
-                    token.ProfileId = state;
-                    await PostToken(token);
-                    return Ok($"Token was created on user {state}");
+                    token.ProfileId = id;
+                    var postReq = await PostToken(token);
+                    var authGroup = GetRandomString(8);
+                    string url = "http://localhost:3000/oauth-" + authGroup + "/" + id; 
+                    return Redirect(url);
                 }
                 catch (HttpRequestException e)
                 {
@@ -83,10 +86,10 @@ namespace API_Test.Controllers
             return token;
         }
 
-        [HttpGet("/tokens/profile/{id}")]
-        public async Task<ActionResult<Token>> GetTokenByProfileId(int profileID)
+        [HttpGet("/tokens/profile/")]
+        public async Task<ActionResult<Token>> GetTokenByProfileId([FromQuery]int profileID)
         {
-            var token = await _context.Tokens.Where(tok => tok.ProfileId == profileID).FirstOrDefaultAsync();
+            var token = await _context.Tokens.FirstOrDefaultAsync(e => e.ProfileId == profileID);
             if (token == null)
             {
                 return NotFound("Could not find token attached to that profileID");
@@ -97,13 +100,32 @@ namespace API_Test.Controllers
         [HttpPost("/tokens")]
         [Consumes("application/json")]
         [Produces("application/json")]
-        public async Task<ActionResult<Token>> PostToken([FromBody] Token token)
+        public async Task<ActionResult<Token>> PostToken([FromQuery] Token token)
         {
             _context.Tokens.Add(token);
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetToken", new { id = token.Id }, token);
         }
 
+        [HttpDelete("/tokens/delete/{id}")]
+        public async Task<ActionResult<Token>> DeleteToken(int id)
+        {
+            var token = await _context.Tokens.FindAsync(id);
+            if (token == null)
+            {
+                return NotFound();
+            }
+
+            _context.Tokens.Remove(token);
+            await _context.SaveChangesAsync();
+
+            return token;
+        }
+
+        private static string GetRandomString(int count)
+        {
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(count)); 
+        }
 
     }
 }
