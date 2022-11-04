@@ -10,13 +10,11 @@ namespace API_Test.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
-        private IConfiguration Configuration { get; }
         private readonly PortfolioGenDBContext _context;
 
-        public ProfileController(PortfolioGenDBContext context, IConfiguration config)
+        public ProfileController(PortfolioGenDBContext context)
         {
             _context = context;
-            Configuration = config;
         }
 
         // GET: api/Profile/profiles
@@ -43,87 +41,7 @@ namespace API_Test.Controllers
             return profiles;
         }
 
-        // TODO: We should redirect this endpoint to be part of our client, we are already posting the token so we simply need to get the token when we have redirected
-        // TODO: We're getting what we need here, which is to post our access token t oour specific user. But we need to use the API to simply return the results. Use the other endpoints to post access tokens for specific users 
-        [HttpGet("/github/oauth/generate/token")]
-        [Consumes("application/json")]
-        [Produces("application/json")]
-        public async Task<ActionResult> GitHubSignInData([FromQuery] String code, [FromQuery]int state)
-        {
-            Token token = new Token(); 
-            string clientID = Configuration["Github:ClientId"];
-            string clientSecret = Configuration["Github:ClientSecret"];
-            // var activeProfile = await _context.Profiles.FindAsync(state); 
-            using (HttpClient client = new HttpClient())
-            {
-                
-                var parameters = new Dictionary<string, string> { { "client_id", clientID }, { "client_secret", clientSecret }, { "code", code }}; 
-                var encodedContent = new FormUrlEncodedContent(parameters);
-                try
-                {
-                    // TODO: Make sure HttpResponseMessage has an Accept Header of application/json. Unnecessary parsing of string contents below
-                    HttpResponseMessage response = await client.PostAsync("https://github.com/login/oauth/access_token", encodedContent);
-                    response.EnsureSuccessStatusCode();
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    var decodedURL = HttpUtility.UrlDecode(responseBody);
-                    var dict = HttpUtility.ParseQueryString(decodedURL);
-
-
-                    var resultObj = dict.AllKeys.ToDictionary(key => key, key => dict[key]);
-                    token.AccessToken = resultObj["access_token"];
-                    token.TokenType = resultObj["token_type"];
-                    token.Scope = resultObj["scope"];
-                    token.ProfileId = state;
-                    await PostToken(token);
-                    return Ok($"Token was created on user {state}");
-                }
-                catch (HttpRequestException e)
-                {
-                    return NotFound(e);
-                };
-            }
-
-        }
-
-        [HttpGet("/tokens")]
-        [Produces("application/json")]
-        public async Task<ActionResult<IEnumerable<Token>>> GetTokens()
-        {
-            var list = await _context.Tokens.ToListAsync<Token>();
-            return Ok(list);
-        }
-
-        [HttpGet("/tokens/{id}")]
-        public async Task<ActionResult<Token>> GetToken(int id)
-        {
-            var token = await _context.Tokens.FindAsync(id);
-            if (token == null)
-            {
-                return NotFound("Token could not be found");
-            }
-            return token; 
-        }
-
-        [HttpGet("/tokens/profile/{profileId}")]
-        public async Task<ActionResult<Token>> GetTokenByProfileId(int profileID)
-        {
-            var token = await _context.Tokens.Where(tok => tok.ProfileId == profileID).FirstOrDefaultAsync();
-            if(token == null)
-            {
-                return NotFound("Could not find token attached to that profileID"); 
-            }
-            return token; 
-        }
-
-        [HttpPost("/tokens")]
-        [Consumes("application/json")]
-        [Produces("application/json")]
-        public async Task<ActionResult<Token>> PostToken([FromBody]Token token)
-        {
-            _context.Tokens.Add(token);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction("GetToken", new { id = token.Id }, token);
-        }
+       
 
         [HttpGet("profiles/{name}")]
         [Produces("application/json")]
