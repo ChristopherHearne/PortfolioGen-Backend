@@ -53,7 +53,7 @@ namespace API_Test.Controllers
                     token.TokenType = resultObj["token_type"];
                     token.Scope = resultObj["scope"];
                     token.ProfileId = id;
-                    var postReq = await PostToken(token);
+                    var postReq = await PostToken(token); // This can create a SQL-Exception if the foreign key constraint is broken
                     var authGroup = GetRandomString(8);
                     string url = "http://localhost:3000/oauth-" + authGroup + "/" + id; 
                     return Redirect(url);
