@@ -41,7 +41,19 @@ namespace API_Test.Controllers
             return profiles;
         }
 
-       
+        [HttpGet("profiles/authenticated")]
+        [Produces("application/json")]
+        public async Task<ActionResult<IEnumerable<Profile>>> GetAuthenticatedProfiles()
+        {
+            var profiles = await _context.Profiles.Where(profile => profile.GithubUsername != null).ToListAsync();
+
+            if(profiles == null)
+            {
+                return NotFound("Could not find any authenticated users"); 
+            }
+
+            return profiles; 
+        }
 
         [HttpGet("profiles/{name}")]
         [Produces("application/json")]
