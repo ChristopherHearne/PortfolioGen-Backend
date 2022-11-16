@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TAI6LyOBEUaS2/m0EHhwS3jEFCi4WXMfqZZqUS9dykPEZ01e4KXiIF71EGex9prtfANlMEOxkfz7EwYrGkBzRg==",
+  "dgSpecHash": "TNKjhQab9werGEAJMG9/+nn+dpWukczzKorUKsOddXBmD0fo6aHOV83DFbEfRJfCjtK1RizOAmuL5DKqJzse3w==",
   "success": true,
-  "projectFilePath": "/Users/christopherhearne/Projects/API-Test/API-Test/API-Test.csproj",
+  "projectFilePath": "/Users/christopherhearne/Projects/Web-API/PortfolioGen-Backend/API-Test.csproj",
   "expectedPackageFiles": [
     "/Users/christopherhearne/.nuget/packages/ado/1.1.1/ado.1.1.1.nupkg.sha512",
     "/Users/christopherhearne/.nuget/packages/aspnet.security.oauth.github/7.0.0/aspnet.security.oauth.github.7.0.0.nupkg.sha512",

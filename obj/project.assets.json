@@ -12171,11 +12171,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/christopherhearne/Projects/API-Test/API-Test/API-Test.csproj",
+      "projectUniqueName": "/Users/christopherhearne/Projects/Web-API/PortfolioGen-Backend/API-Test.csproj",
       "projectName": "API-Test",
-      "projectPath": "/Users/christopherhearne/Projects/API-Test/API-Test/API-Test.csproj",
+      "projectPath": "/Users/christopherhearne/Projects/Web-API/PortfolioGen-Backend/API-Test.csproj",
       "packagesPath": "/Users/christopherhearne/.nuget/packages/",
-      "outputPath": "/Users/christopherhearne/Projects/API-Test/API-Test/obj/",
+      "outputPath": "/Users/christopherhearne/Projects/Web-API/PortfolioGen-Backend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/christopherhearne/.nuget/NuGet/NuGet.Config"
